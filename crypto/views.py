@@ -1,39 +1,67 @@
+import pprint
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from pycoingecko import CoinGeckoAPI
 
 cg = CoinGeckoAPI()
 
+crypto_dict = {
+    'btc': 'bitcoin',
+    'eth': 'ethereum',
+    'xrp': 'ripple',
+    'bnb': 'binancecoin',
+    'ada': 'cardano',
+    'doge': 'dogecoin',
+    'matic': 'matic-network',
+    'dot': 'polkadot'
+}
+
 
 # Create your views here.
 
-def get_crypto_info(request, crypto_symbol):
-    check_symbol = cg.get_coins_list()
-    filtered = filter(lambda x: x['symbol'] == crypto_symbol.lower(), check_symbol)
-    statuses = [x['id'] for x in filtered]
-    statuses.sort(key=len)
-    coin_data = cg.get_coin_by_id(id=statuses[0])
-    name = coin_data['name']
-    try:
-        price = "{:,.3f}".format(coin_data['market_data']['current_price']['usd'])
-    except Exception:
-        price = 0
-    try:
-        market_cap = "{:,.2f}".format(coin_data['market_data']['market_cap']['usd'])
-    except Exception:
-        market_cap = 0
-    try:
-        price_change_24h = "{:,.2f}".format(coin_data['market_data']['price_change_percentage_24h'])
-    except Exception:
-        price_change_24h = 0
+def get_crypto_info(request, crypto_symbol: str):
+    coin_id = crypto_dict.get(crypto_symbol, None)
+    if coin_id:
+        coin_data = cg.get_coin_by_id(coin_id)
+        name = coin_data['name']
+        try:
+            price = "{:,.3f}".format(coin_data['market_data']['current_price']['usd'])
+        except Exception:
+            price = 0
+        try:
+            market_cap = "{:,.2f}".format(coin_data['market_data']['market_cap']['usd'])
+        except Exception:
+            market_cap = 0
+        try:
+            price_change_24h = "{:,.2f}".format(coin_data['market_data']['price_change_percentage_24h'])
+        except Exception:
+            price_change_24h = 0
 
-    text = f'''
-    ✅ {name}
-    ❇ Ціна {price} - USD
-    📈 Зміна ціни 24h  {price_change_24h} %
-    💰 Капіталізація {market_cap} - USD
-    '''
-    print(text)
+        text = f'''
+            <TITLE>✅ {name}</TITLE>
+            </HEAD>
+            <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
+            <H1 ALIGN= CENTER><BIG>✅ {name}</BIG><BR>
+            <P ALIGN= CENTER>❇ Ціна {price} - USD<BR>
+            <P ALIGN= CENTER>📈 Зміна ціни 24h  {price_change_24h} %<BR>
+            <P ALIGN= CENTER>💰 Капіталізація {market_cap} - USD</P></H1>
+            </BODY>'''
+        return HttpResponse(text)
+    else:
+        page404 = f'''
+        <TITLE>ERROR 404</TITLE> 
+        <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
+        <H1 ALIGN= CENTER><BIG>У нас немає данних про {crypto_symbol}</H1></BODY>'''
+        return HttpResponse(page404)
 
-    return HttpResponse(text)
+
+def get_crypto_info_by_id(request, crypto_id: int):
+    crypto = list(crypto_dict)
+    if crypto_id > len(crypto):
+        page404 = f'''
+        <TITLE>ERROR 404</TITLE> 
+        <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
+        <H1 ALIGN= CENTER><BIG>У нас немає данних про {crypto_id}</H1></BODY>'''
+        return HttpResponseNotFound(page404)
 
