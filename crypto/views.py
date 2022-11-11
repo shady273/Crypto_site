@@ -1,7 +1,8 @@
 import pprint
 
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.urls import reverse
 from pycoingecko import CoinGeckoAPI
 
 cg = CoinGeckoAPI()
@@ -19,6 +20,23 @@ crypto_dict = {
 
 
 # Create your views here.
+
+def index(request):
+    crypto = list(crypto_dict)
+    li_elemens = str()
+    for sing in crypto:
+        redirect_path = reverse('crypto_name', args=[sing])
+        li_elemens += f'<li><a href={redirect_path}>{sing.upper()}</a></li>'
+    response = f'''
+    <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
+    <H1 ALIGN= CENTER><BIG>
+    <ul>
+        {li_elemens}
+    </ul>
+    </H1></BODY>
+    '''
+    return HttpResponse(response)
+
 
 def get_crypto_info(request, crypto_symbol: str):
     coin_id = crypto_dict.get(crypto_symbol, None)
@@ -61,7 +79,9 @@ def get_crypto_info_by_id(request, crypto_id: int):
     if crypto_id > len(crypto):
         page404 = f'''
         <TITLE>ERROR 404</TITLE> 
-        <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
+        <BODY BGCOLOR=#1A1A1A TEXT=WHITE>r
         <H1 ALIGN= CENTER><BIG>У нас немає данних про {crypto_id}</H1></BODY>'''
         return HttpResponseNotFound(page404)
-
+    name_crypto = crypto[crypto_id - 1]
+    redirect_url = reverse('crypto_name', args=[name_crypto])
+    return HttpResponseRedirect(redirect_url)
