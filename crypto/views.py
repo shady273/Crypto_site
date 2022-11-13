@@ -10,12 +10,21 @@ cg = CoinGeckoAPI()
 crypto_dict = {
     'btc': 'bitcoin',
     'eth': 'ethereum',
-    'xrp': 'ripple',
+    'usdt': 'tether',
     'bnb': 'binancecoin',
+    'usdc': 'usd-coin',
+    'busd': 'binance-usd',
+    'xrp': 'ripple',
     'ada': 'cardano',
     'doge': 'dogecoin',
     'matic': 'matic-network',
     'dot': 'polkadot'
+}
+
+type_coin = {
+    'base': ['btc', 'eth'],
+    'altcoins': ['xrp', 'bnb', 'ada', 'doge', 'matic', 'dot'],
+    'stablecoins': ['usdt', 'usdc', 'busd']
 }
 
 
@@ -27,12 +36,14 @@ def index(request):
     for sing in crypto:
         redirect_path = reverse('crypto_name', args=[sing])
         li_elemens += f'<li><a href={redirect_path}>{sing.upper()}</a></li>'
+
     response = f'''
     <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
     <H1 ALIGN= CENTER><BIG>
     <ul>
         {li_elemens}
     </ul>
+    <a href=type>Crypto Type</a>
     </H1></BODY>
     '''
     return HttpResponse(response)
@@ -40,7 +51,7 @@ def index(request):
 
 def get_crypto_info(request, crypto_symbol: str):
     coin_id = crypto_dict.get(crypto_symbol, None)
-    if coin_id:
+    if coin_id in crypto_dict.values():
         coin_data = cg.get_coin_by_id(coin_id)
         name = coin_data['name']
         try:
@@ -85,3 +96,38 @@ def get_crypto_info_by_id(request, crypto_id: int):
     name_crypto = crypto[crypto_id - 1]
     redirect_url = reverse('crypto_name', args=[name_crypto])
     return HttpResponseRedirect(redirect_url)
+
+
+def get_type_info(request):
+    crypto = list(type_coin)
+    li_elements = str()
+    for types in crypto:
+        redirect_path = reverse('type', args=[types])
+        li_elements += f'<li><a href={redirect_path}>{types.capitalize()}</a></li>'
+    response = f'''
+        <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
+        <H1 ALIGN= CENTER><BIG>
+        <ul>
+            {li_elements}
+        </ul>
+        </H1></BODY>
+        '''
+    return HttpResponse(response)
+
+
+def get_type(request, type_crypto: str):
+    coin_type = type_coin.get(type_crypto, None)
+    if coin_type in type_coin.values():
+        li_elements = str()
+        for types in coin_type:
+            redirect_path = reverse('crypto_name', args=[types])
+            li_elements += f'<li><a href={redirect_path}>{types.capitalize()}</a></li>'
+        response = f'''
+            <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
+            <H1 ALIGN= CENTER><BIG>
+            <ul>
+                {li_elements}
+            </ul>
+            </H1></BODY>
+            '''
+        return HttpResponse(response)

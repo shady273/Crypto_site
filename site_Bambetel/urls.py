@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from crypto.views import get_type_info
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('crypto/', include('crypto.urls'))
+    path('', include('crypto.urls'))
 ]
