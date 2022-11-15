@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Type</title>
+</head>
+<body BGCOLOR=#1A1A1A TEXT=WHITE>
+<H1 ALIGN=CENTER>
+    {% for sing in type_crypto %}
+    <a href="{% url 'type' sing %}">{{ sing|title }}</a><br>
+    {% endfor %}
+</H1>
+</body>
+</html>

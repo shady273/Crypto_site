@@ -3,6 +3,7 @@ import pprint
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 from pycoingecko import CoinGeckoAPI
 
 cg = CoinGeckoAPI()
@@ -32,24 +33,14 @@ type_coin = {
 
 def index(request):
     crypto = list(crypto_dict)
-    li_elemens = str()
-    for sing in crypto:
-        redirect_path = reverse('crypto_name', args=[sing])
-        li_elemens += f'<li><a href={redirect_path}>{sing.upper()}</a></li>'
-
-    response = f'''
-    <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
-    <H1 ALIGN= CENTER><BIG>
-    <ul>
-        {li_elemens}
-    </ul>
-    <a href=type>Crypto Type</a>
-    </H1></BODY>
-    '''
-    return HttpResponse(response)
+    data = {
+        'crypto': crypto
+    }
+    return render(request, 'crypto/home_page.html', context=data)
 
 
 def get_crypto_info(request, crypto_symbol: str):
+    data = {}
     coin_id = crypto_dict.get(crypto_symbol, None)
     if coin_id in crypto_dict.values():
         coin_data = cg.get_coin_by_id(coin_id)
@@ -66,23 +57,13 @@ def get_crypto_info(request, crypto_symbol: str):
             price_change_24h = "{:,.2f}".format(coin_data['market_data']['price_change_percentage_24h'])
         except Exception:
             price_change_24h = 0
-
-        text = f'''
-            <TITLE>✅ {name}</TITLE>
-            </HEAD>
-            <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
-            <H1 ALIGN= CENTER><BIG>✅ {name}</BIG><BR>
-            <P ALIGN= CENTER>❇ Ціна {price} - USD<BR>
-            <P ALIGN= CENTER>📈 Зміна ціни 24h  {price_change_24h} %<BR>
-            <P ALIGN= CENTER>💰 Капіталізація {market_cap} - USD</P></H1>
-            </BODY>'''
-        return HttpResponse(text)
-    else:
-        page404 = f'''
-        <TITLE>ERROR 404</TITLE> 
-        <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
-        <H1 ALIGN= CENTER><BIG>У нас немає данних про {crypto_symbol}</H1></BODY>'''
-        return HttpResponse(page404)
+        data = {
+            'name': name,
+            'price': price,
+            'market_cap': market_cap,
+            'price_change_24h': price_change_24h
+        }
+    return render(request, 'crypto/info_crypto.html', context=data)
 
 
 def get_crypto_info_by_id(request, crypto_id: int):
@@ -100,34 +81,17 @@ def get_crypto_info_by_id(request, crypto_id: int):
 
 def get_type_info(request):
     crypto = list(type_coin)
-    li_elements = str()
-    for types in crypto:
-        redirect_path = reverse('type', args=[types])
-        li_elements += f'<li><a href={redirect_path}>{types.capitalize()}</a></li>'
-    response = f'''
-        <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
-        <H1 ALIGN= CENTER><BIG>
-        <ul>
-            {li_elements}
-        </ul>
-        </H1></BODY>
-        '''
-    return HttpResponse(response)
+    data = {
+        'type_crypto': crypto
+    }
+    return render(request, 'crypto/type_crypto.html', context=data)
 
 
 def get_type(request, type_crypto: str):
     coin_type = type_coin.get(type_crypto, None)
     if coin_type in type_coin.values():
-        li_elements = str()
-        for types in coin_type:
-            redirect_path = reverse('crypto_name', args=[types])
-            li_elements += f'<li><a href={redirect_path}>{types.capitalize()}</a></li>'
-        response = f'''
-            <BODY BGCOLOR=#1A1A1A TEXT=WHITE>
-            <H1 ALIGN= CENTER><BIG>
-            <ul>
-                {li_elements}
-            </ul>
-            </H1></BODY>
-            '''
-        return HttpResponse(response)
+        data = {
+            'title': coin_type,
+            'type_crypto': type_crypto
+        }
+        return render(request, 'crypto/list_type.html', context=data)
