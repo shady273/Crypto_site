@@ -19,13 +19,14 @@ crypto_dict = {
     'ada': 'cardano',
     'doge': 'dogecoin',
     'matic': 'matic-network',
-    'dot': 'polkadot'
+    'dot': 'polkadot',
+    'dai': 'dai',
 }
 
 type_coin = {
     'base': ['btc', 'eth'],
     'altcoins': ['xrp', 'bnb', 'ada', 'doge', 'matic', 'dot'],
-    'stablecoins': ['usdt', 'usdc', 'busd']
+    'stablecoins': ['usdt', 'usdc', 'busd', 'dai']
 }
 
 
@@ -44,7 +45,10 @@ def get_crypto_info(request, crypto_symbol: str):
     coin_id = crypto_dict.get(crypto_symbol, None)
     if coin_id in crypto_dict.values():
         coin_data = cg.get_coin_by_id(coin_id)
+        pprint.pprint(coin_data)
         name = coin_data['name']
+        image = coin_data['image']['small']
+        tickers = coin_data['tickers'][0]
         try:
             price = "{:,.3f}".format(coin_data['market_data']['current_price']['usd'])
         except Exception:
@@ -61,7 +65,9 @@ def get_crypto_info(request, crypto_symbol: str):
             'name': name,
             'price': price,
             'market_cap': market_cap,
-            'price_change_24h': price_change_24h
+            'price_change_24h': price_change_24h,
+            'image': image,
+            'tickers': tickers
         }
     return render(request, 'crypto/info_crypto.html', context=data)
 

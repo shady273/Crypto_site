@@ -1,0 +1,79 @@
+a {
+  background-color: #636F73;
+  border: double;
+  color: #F9FDFF;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 2px solid black;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  width: 60px;
+  margin: auto;
+
+}
+a:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.div_buttons{
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    list-style-type: none;
+    width: 90%;
+    max-width: 35rem;
+    margin: 2rem auto;
+    padding: 1px;
+}
+
+.type_div{
+    list-style-type: none;
+    width: 90%;
+    max-width: 35rem;
+    margin: 2rem auto;
+    padding: 1px;
+}
+
+.type_bottons{
+  background-color: #636F73;
+  border: double;
+  color: #F9FDFF;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 2px solid black;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  width: 50%;
+  margin: 1px 50px 1px 50px;
+}
+
+.crypto_info{
+    margin-left: 40px;
+    color: width;
+}
+
+.crypyo_content{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.name{
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+html {
+    background-image: url("rm373batch2-08.jpg");
+    background-size: 100% 235%;
+    font-family: "Merriweather", sans-serif;
+}

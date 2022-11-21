@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{type_crypto|title}}</title>
-</head>
-<body BGCOLOR=#1A1A1A TEXT=WHITE>
-<H1 ALIGN=CENTER>
+{% extends 'base.html' %}
+
+{% block title %}
+    {{type_crypto|title}}
+{% endblock %}
+
+{% block content %}
     {% for sing in title %}
     <a href="{% url 'crypto_name' sing %}">{{ sing|upper }}</a><br>
     {% endfor %}
-</H1>
-</body>
-</html>
+{% endblock %}

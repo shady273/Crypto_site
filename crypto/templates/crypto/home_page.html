@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Bambetel</title>
-</head>
-<body BGCOLOR=#1A1A1A TEXT=WHITE>
-<H1 ALIGN=CENTER>
+{% extends 'base.html' %}
+
+{% block title %}
+    Bambetel
+{% endblock %}
+
+{% block content %}
+    <div class="div_buttons">
     {% for sing in crypto %}
     <a href="{% url 'crypto_name' crypto_symbol=sing %}">{{ sing|upper }}</a><br>
     {% endfor %}
-    <br>
-    <a href=type>Crypto Type</a>
-</H1>
+    </div>
 
-</body>
-</html>
+    <div class="type_div">
+    <a class="type_bottons" href=type>Crypto Type</a>
+    </div>
+{% endblock %}

@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{name}}</title>
-</head>
-<body BGCOLOR=#1A1A1A TEXT=WHITE>
-<H1 ALIGN=CENTER>
-    ✅ {{name}}<br>
-    ❇ Ціна {{price}} - USD<br>
-    📈 Зміна ціни 24h  {{price_change_24h}} %<br>
-    💰 Капіталізація {{market_cap}} - USD</H1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    {{name}}
+{% endblock %}
+
+{% block content %}
+    <div class="crypto_info">
+        <h3><img src="{{image}}"><span class="name">{{name}}</span></h3>
+        <span class="crypyo_content"><p>Ціна {{price}} - USD</p>
+        <p>Зміна ціни 24h  {{price_change_24h}} %</p>
+        <p>Капіталізація {{market_cap}} - USD</p>
+        <p>{{tickers}}</p></span>
+    </div>
+{% endblock %}
