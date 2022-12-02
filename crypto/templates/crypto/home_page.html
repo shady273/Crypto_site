@@ -7,7 +7,7 @@
 {% block content %}
     <div class="div_buttons">
     {% for sing in crypto %}
-    <a href="{% url 'crypto_name' crypto_symbol=sing %}">{{ sing|upper }}</a><br>
+    <a class="currency" href="{% url 'crypto_name' crypto_symbol=sing %}">{{ sing|upper }}</a><br>
     {% endfor %}
     </div>
 

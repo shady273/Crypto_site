@@ -45,10 +45,11 @@ def get_crypto_info(request, crypto_symbol: str):
     coin_id = crypto_dict.get(crypto_symbol, None)
     if coin_id in crypto_dict.values():
         coin_data = cg.get_coin_by_id(coin_id)
-        pprint.pprint(coin_data)
+        # pprint.pprint(coin_data)
         name = coin_data['name']
         image = coin_data['image']['small']
-        tickers = coin_data['tickers'][0]
+        tickers = coin_data['tickers']
+        pprint.pprint(tickers)
         try:
             price = "{:,.3f}".format(coin_data['market_data']['current_price']['usd'])
         except Exception:

@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{name}}
+{{name}}
 {% endblock %}
 
 {% block content %}
-    <div class="crypto_info">
-        <h3><img src="{{image}}"><span class="name">{{name}}</span></h3>
-        <span class="crypyo_content"><p>Ціна {{price}} - USD</p>
-        <p>Зміна ціни 24h  {{price_change_24h}} %</p>
-        <p>Капіталізація {{market_cap}} - USD</p>
-        <p>{{tickers}}</p></span>
-    </div>
+<div class="crypto_info">
+    <h3><img class="logo" src="{{image}}"><span class="name">{{name}}</span></h3>
+    <p>Ціна {{price}} - USD</p>
+    <p>Зміна ціни 24h {{price_change_24h}} %</p>
+    <p>Капіталізація {{market_cap}} - USD</p>
+</div>
+<h3>Exchange</h3>
+<div class="exchange">
+    {% for sing in tickers %}
+        <a class="market-item" href="{{ sing.trade_url }}">{{ sing.market.name }} {{sing.base}}/{{sing.target}}</a><br>
+    {% endfor %}
+</div>
 {% endblock %}

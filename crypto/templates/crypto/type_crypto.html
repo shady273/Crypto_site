@@ -6,6 +6,6 @@
 
 {% block content %}
     {% for sing in type_crypto %}
-    <a class="list_type" href="{% url 'type' sing %}">{{ sing|title }}</a><br>
+    <a class="list_type" href="{% url 'type' sing %}">{{ sing|title }}</a>
     {% endfor %}
 {% endblock %}

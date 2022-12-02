@@ -1,4 +1,4 @@
-a {
+.currency {
   background-color: #636F73;
   border: double;
   color: #F9FDFF;
@@ -12,9 +12,13 @@ a {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   width: 60px;
   margin: auto;
-
 }
-a:active {
+
+.currency:hover{
+  background-color: #343a3b;
+}
+
+.currency:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
@@ -55,16 +59,23 @@ a:active {
   margin: 1px 50px 1px 50px;
 }
 
-.crypto_info{
+.crypto_info p{
     margin-left: 40px;
     color: width;
-}
-
-.crypyo_content{
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
+}
+
+
+.market-item {
+  display: flex;
+  text-decoration: none;
+  color: white;
+  transition: all .25s ease;
+  font-size: medium;
+  flex-grow: 1;
 }
 
 .name{
@@ -76,4 +87,26 @@ html {
     background-image: url("rm373batch2-08.jpg");
     background-size: 100% 235%;
     font-family: "Merriweather", sans-serif;
+}
+
+.exchange a:hover{
+  color: #17baaa;
+  transition: all .25s ease;
+}
+
+.exchange{
+  border: 5px solid black;
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+.navbar{
+  font-family: "Merriweather", sans-serif;
+  color: white;
+  text-decoration: none;
+  transition: all .25s ease;
+}
+
+.navbar a:hover{
+  color: #17baaa;
 }
