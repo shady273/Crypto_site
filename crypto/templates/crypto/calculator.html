@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Calculator
+{% endblock %}
+
+{% block content %}
+        <h1>Calculator</h1>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.price_1 }}
+        {{ form.value_1 }}<br> <br>
+        {{ form.price_2 }}
+        {{ form.value_2 }}<br> <br>
+        <input type = "submit" name = "submit" value = "Розрахувати">
+        </form><br>
+        <span>{{ error }}</span>
+        <span> Середня ціна - {{ aver_price }}</span><br>
+        <span>Кількість монет - {{ all_value }}</span>
+{% endblock %}

@@ -13,8 +13,13 @@
 </div>
 <h3>Exchange</h3>
 <div class="exchange">
-    {% for sing in tickers %}
-        <a class="market-item" href="{{ sing.trade_url }}">{{ sing.market.name }} {{sing.base}}/{{sing.target}}</a><br>
-    {% endfor %}
+        {% for key, value in exchange.items %}
+        <div class="market-box">
+        <h2 class="title-exch">{{ key }}</h2>
+        {% for pair, link in value.items %}
+            <a class="market-item" href="{{ link }}">{{ pair }}</a><span>  </span>
+        {% endfor %}
+        </div>
+        {% endfor %}
 </div>
 {% endblock %}

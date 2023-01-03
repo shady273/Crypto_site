@@ -70,12 +70,18 @@
 
 
 .market-item {
-  display: flex;
   text-decoration: none;
   color: white;
   transition: all .25s ease;
   font-size: medium;
-  flex-grow: 1;
+  flex-shrink: 1;
+  padding: 10px;
+}
+
+.market-box{
+  border: 1px solid rgb(126, 125, 125);
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .name{
@@ -83,11 +89,31 @@
     margin-left: 30px;
 }
 
+h3{
+  margin: 0;
+}
+
 html {
-    background-image: url("rm373batch2-08.jpg");
-    background-size: 100% 235%;
+    background-image: url("fon_image.png");
+    height: 100vh;
+    background-size: cover;
+    background-repeat: repeat;
     font-family: "Merriweather", sans-serif;
 }
+
+html::after {
+    z-index:-1;
+    content: "";
+    background: #010720;
+    position: absolute;
+    opacity: .85;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transition: all .25s ease;
+}
+
 
 .exchange a:hover{
   color: #17baaa;
@@ -95,18 +121,42 @@ html {
 }
 
 .exchange{
-  border: 5px solid black;
-  padding-left: 50px;
-  padding-top: 50px;
+  display: block;;
+  justify-content: space-between;
+  align-items: start;
+  flex-wrap: wrap;
+  padding: 5px;
 }
 
-.navbar{
+.title-exch{
+    color: rgb(255, 136, 0);
+    margin: 0;
+}
+
+
+.home, .calc, .login, .regist{
   font-family: "Merriweather", sans-serif;
   color: white;
   text-decoration: none;
   transition: all .25s ease;
+  list-style-type: none;
 }
 
-.navbar a:hover{
+.heder a:hover{
   color: #17baaa;
+}
+
+.nav-list li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 0 10px
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+.heder{
+  display: flex;
 }

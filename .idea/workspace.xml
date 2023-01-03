@@ -104,8 +104,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.Crypto" />
-      <item itemvalue="Python.tests" />
       <item itemvalue="Python.test" />
+      <item itemvalue="Python.tests" />
     </list>
     <recent_temporary>
       <list>
@@ -124,5 +124,16 @@
       <updated>1668008035069</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/crypto/tests.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
